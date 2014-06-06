@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import net.claztec.springbook.user.domain.User;
 
-public class UserDao {
+public abstract class UserDao {
 
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		Connection c = getConnection();
@@ -49,16 +49,11 @@ public class UserDao {
 
 	}
 
-	private Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/springbook",
-				"spring", "book");
-		return c;
-	}
-
+	public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+	
 	public static void main(String[] args) throws ClassNotFoundException,
 			SQLException {
-		UserDao dao = new UserDao();
+		UserDao dao = new DUserDao();
 		User user = new User();
 		user.setId("claztec");
 		user.setName("최재만");
