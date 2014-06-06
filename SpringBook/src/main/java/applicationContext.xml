@@ -4,4 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="connectionMaker" class="net.claztec.springbook.user.dao.DConnectionMaker"></bean>
+	
+	<bean id="userDao" class="net.claztec.springbook.user.dao.UserDao">
+		<property name="connectionMaker" ref="connectionMaker"></property>
+	</bean>	
 </beans>

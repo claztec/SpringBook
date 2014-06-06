@@ -3,10 +3,10 @@ package net.claztec.springbook.user.dao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class DaoFactory {
 
-	@Bean
+//	@Bean
 	public UserDao userDao() {
 		UserDao userDao = new UserDao();
 		userDao.setConnectionMaker(connectionMaker());
@@ -23,7 +23,7 @@ public class DaoFactory {
 //		return messageDao;
 //	}
 
-	@Bean
+//	@Bean
 	public ConnectionMaker connectionMaker() {
 		return new DConnectionMaker();
 	}
