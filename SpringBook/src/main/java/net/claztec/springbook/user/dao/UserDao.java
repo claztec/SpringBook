@@ -5,18 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import net.claztec.springbook.user.domain.User;
 
 public class UserDao {
 
-	private ConnectionMaker connectionMaker;
-	
-	public void setConnectionMaker(ConnectionMaker connectionMaker) {
-		this.connectionMaker = connectionMaker;
+	private DataSource dataSource;
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 	public void add(User user) throws ClassNotFoundException, SQLException {
-		Connection c = connectionMaker.makeNewConnection();
+		Connection c = dataSource.getConnection();
 
 		PreparedStatement ps = c
 				.prepareStatement("insert into users(id, name, password) values(?,?,?)");
@@ -30,10 +32,9 @@ public class UserDao {
 		c.close();
 	}
 
-
 	public User get(String id) throws SQLException, ClassNotFoundException {
-		Connection c = connectionMaker.makeNewConnection();
-		
+		Connection c = dataSource.getConnection(); 
+				
 		PreparedStatement ps = c
 				.prepareStatement("select * from users where id = ?");
 		ps.setString(1, id);
