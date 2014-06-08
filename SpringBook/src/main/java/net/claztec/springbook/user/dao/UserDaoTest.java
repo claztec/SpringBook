@@ -22,8 +22,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UserDaoTest {
 	
 	@Autowired
-	private ApplicationContext context;
-	
 	private UserDao dao;
 	
 	private User user1;
@@ -32,8 +30,6 @@ public class UserDaoTest {
 	
 	@Before
 	public void setUp() {
-		this.dao = this.context.getBean("userDao", UserDao.class);
-		
 		user1 = new User("gyumee", "박성철", "springno1");
 		user2 = new User("leeqw700", "이길원", "springno2");
 		user3 = new User("bumjin", "박범진", "springno3");
