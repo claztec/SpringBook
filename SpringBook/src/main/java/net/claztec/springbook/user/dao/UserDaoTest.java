@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import net.claztec.springbook.user.domain.User;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -14,12 +15,18 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 public class UserDaoTest {
 	
+	private UserDao dao;
+	
+	@Before
+	public void setUp() {
+		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+		dao = context.getBean("userDao", UserDao.class);
+	}
+	
 	@Test
 	public void addAndGet() throws ClassNotFoundException,
 			SQLException {
 		
-		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-		UserDao dao = context.getBean("userDao", UserDao.class);
 		User user1 = new User("gyumee", "박성철", "springno1");
 		User user2 = new User("leegw700", "이길원", "springno2");
 	
@@ -41,8 +48,6 @@ public class UserDaoTest {
 	
 	@Test
 	public void count() throws SQLException, ClassNotFoundException {
-		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-		UserDao dao = context.getBean("userDao", UserDao.class);
 		
 		User user1 = new User("gyumee", "박성철", "springno1");
 		User user2 = new User("leeqw700", "이길원", "springno2");
@@ -64,9 +69,6 @@ public class UserDaoTest {
 	
 	@Test(expected=EmptyResultDataAccessException.class)
 	public void getUserFailure() throws SQLException, ClassNotFoundException {
-		ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-		
-		UserDao dao = context.getBean("userDao", UserDao.class);
 		dao.deleteAll();
 		assertThat(dao.getCount(), is(0));
 		
